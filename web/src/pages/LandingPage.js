@@ -416,7 +416,7 @@ const Hero = ({ onStart }) => {
           }}
         >
           <HeroStat label="Projects executed" target={500} lead={5} suffix="+" />
-          <HeroStat label="Median MVP time" valueText="4 wk" />
+          <HeroStat label="Median MVP time" valueText="4 weeks" />
         </div>
       </div>
 

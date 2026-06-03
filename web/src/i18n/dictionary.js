@@ -53,13 +53,13 @@ const en = {
     'Describe what you need. The system scopes it, prices it, assigns builders, runs QA and locks delivery against a contract — without retainers, packages or back-and-forth.',
   'hero.stat.projects':  'Projects executed',
   'hero.stat.mvp':       'Median MVP time',
-  'hero.stat.mvp.value': '4 wk',
+  'hero.stat.mvp.value': '4 weeks',
   'hero.stat.contract':  'Contract-met delivery',
   'hero.stat.builders':  'Vetted builders',
   'hero.escrow':         'Escrow-locked · funds release only on QA-passed delivery',
   'hero.escrow.tag':     'Escrow-locked',
   'hero.escrow.text':    "You don't pay forward. Funds release on delivery.",
-  'hero.stat.mvp.short': '4 wk',
+  'hero.stat.mvp.short': '4 weeks',
   'hero.stat.contract.value': '98%',
 
   /* ─── ESTIMATOR ─── */

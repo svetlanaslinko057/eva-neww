@@ -1252,6 +1252,83 @@
     margin-top: 24px !important;
     padding-top: 16px !important;
   }
+
+  /* === Hero — all 4 stats in ONE horizontal row on mobile ===
+     Break out of the 2-column hero layout via display: contents on the
+     column wrappers, then place the 4 stat tiles into a single row
+     (2 stat groups × 2 tiles each = 4) at the bottom of the hero grid. */
+  [data-testid="hero"] .hero-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-rows: auto auto auto !important;
+    column-gap: 10px !important;
+    row-gap: 20px !important;
+    align-items: start !important;
+  }
+  [data-testid="hero"] .hero-col--left,
+  [data-testid="hero"] .hero-col--right {
+    display: contents !important;
+  }
+  /* Row 1: Hero narrative copy — full 4-col width */
+  [data-testid="hero"] .hero-col--left > div:first-child {
+    grid-row: 1 !important;
+    grid-column: 1 / -1 !important;
+  }
+  /* Hide the vertical spacers — they make no sense in mobile flow */
+  [data-testid="hero"] .hero-col--left > div[style*="1 1 auto"],
+  [data-testid="hero"] .hero-col--right > div[style*="1 1 auto"] {
+    display: none !important;
+  }
+  /* Row 2: PipelinePanel ("Start project" card) — full width, compact */
+  [data-testid="hero"] [data-testid="pipeline-ui"] {
+    grid-row: 2 !important;
+    grid-column: 1 / -1 !important;
+  }
+  /* Row 3: Left stats — first 2 cols */
+  [data-testid="hero"] .hero-stats--left {
+    grid-row: 3 !important;
+    grid-column: 1 / 3 !important;
+    margin-top: 0 !important;
+    padding-top: 16px !important;
+    padding-right: 5px !important;
+    gap: 8px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  /* Row 3: Right stats — last 2 cols, aligned on the SAME row */
+  [data-testid="hero"] .hero-stats--right {
+    grid-row: 3 !important;
+    grid-column: 3 / 5 !important;
+    margin-top: 0 !important;
+    padding-top: 16px !important;
+    padding-left: 5px !important;
+    gap: 8px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* === Compact PipelinePanel ("Start project" / "Початий проект") === */
+  [data-testid="pipeline-ui"] > div:first-child {
+    padding: 6px 12px !important;
+    font-size: 10px !important;
+  }
+  [data-testid="pipeline-ui"] > div:nth-child(2) > div {
+    padding: 6px 12px !important;
+    gap: 10px !important;
+    grid-template-columns: 44px 1fr auto !important;
+  }
+  [data-testid="pipeline-ui"] > div:nth-child(2) > div > div > div:first-child {
+    font-size: 12px !important;
+  }
+  [data-testid="pipeline-ui"] > div:nth-child(2) > div > div > div:nth-child(2) {
+    font-size: 10.5px !important;
+  }
+  [data-testid="pipeline-ui"] > div:last-child {
+    padding: 6px 12px !important;
+    font-size: 10px !important;
+  }
+  /* StatePill compact */
+  [data-testid="pipeline-ui"] [data-testid^="pipeline-row"] {
+    padding: 6px 12px !important;
+  }
   [data-testid="estimator-block"] .estimator-head h2 {
     font-size: clamp(26px, 7.5vw, 34px) !important;
   }
