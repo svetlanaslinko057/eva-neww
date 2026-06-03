@@ -13,6 +13,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import LandingPageLight from '@/pages/LandingPageLight';
 import FooterExtras from '@/components/FooterExtras';
 import MobileCabinetSection from '@/components/MobileCabinetSection';
+import { useContactModal } from '@/contexts/ContactModalContext';
 
 /**
  * LandingPage — theme dispatcher.
