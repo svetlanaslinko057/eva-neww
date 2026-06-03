@@ -2550,13 +2550,13 @@ const uk = {
     'Опишіть ідею — отримаєте розклад на модулі, фіксовану ціну, команду під ваш стек і здачу за контрактом. Без абонементів, без пакетів, без нескінченних дзвінків.',
   'hero.stat.projects':  'Запущено продуктів',
   'hero.stat.mvp':       'Середній час до MVP',
-  'hero.stat.mvp.value': '4 тиж',
+  'hero.stat.mvp.value': '1 міс.',
   'hero.stat.contract':  'Здача за контрактом',
   'hero.stat.builders':  'Перевірених фахівців',
   'hero.escrow':         'Гроші на escrow · виплата лише після проходження QA',
   'hero.escrow.tag':     'НА ESCROW',
   'hero.escrow.text':    'Жодних авансів. Кошти йдуть після прийому роботи.',
-  'hero.stat.mvp.short': '4 тиж',
+  'hero.stat.mvp.short': '1 міс.',
   'hero.stat.contract.value': '98%',
 
   /* ─── ESTIMATOR ─── */

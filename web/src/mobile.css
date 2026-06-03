@@ -1345,6 +1345,7 @@
     /* Negative-margin trick so cards visually extend to viewport edges */
     margin-left: -20px !important;
     margin-right: -20px !important;
+    margin-top: 24px !important;
     padding: 0 20px !important;
     background: transparent !important;
     border: none !important;
@@ -1380,12 +1381,14 @@
   [data-testid="build-modes-section"] .modes-grid {
     display: flex !important;
     flex-direction: row !important;
+    align-items: stretch !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch !important;
     margin-left: -20px !important;
     margin-right: -20px !important;
+    margin-top: 24px !important;
     padding: 8px 20px !important;
     gap: 14px !important;
     grid-template-columns: none !important;
@@ -1393,10 +1396,18 @@
   }
   [data-testid="build-modes-section"] .modes-grid::-webkit-scrollbar { display: none; }
   [data-testid="build-modes-section"] [data-testid^="build-mode-"] {
-    flex: 0 0 86% !important;
-    max-width: 320px !important;
+    flex: 0 0 88% !important;
+    max-width: 340px !important;
     scroll-snap-align: start !important;
     min-width: 0;
+    padding: 22px 20px !important;
+    height: auto !important;
+    align-self: stretch !important;
+  }
+  /* Tighten the trailing note */
+  [data-testid="build-modes-section"] .modes-grid + p {
+    margin-top: 20px !important;
+    font-size: 11.5px !important;
   }
 
   /* ---------- 7. SYSTEM / TEAM — horizontal scroll-snap ---------- */
