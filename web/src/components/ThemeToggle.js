@@ -12,20 +12,20 @@ const ThemeToggle = ({ className = '' }) => {
   return (
     <button
       onClick={toggleTheme}
-      className={`relative group p-2 rounded-lg transition-all duration-200 ${className}`}
+      className={`theme-toggle-btn relative group transition-all duration-200 ${className}`}
       style={{
-        background: 'var(--token-surface-elevated)',
-        border: '1.5px solid var(--token-border-strong)',
+        background: 'transparent',
+        border: '0',
+        padding: '6px',
+        borderRadius: 8,
         color: 'var(--token-text-secondary)',
-        boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'var(--token-primary-accent, var(--t-signal))';
-        e.currentTarget.style.background = 'var(--t-signal-bg-soft)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'var(--token-border-strong)';
-        e.currentTarget.style.background = 'var(--token-surface-elevated)';
+        cursor: 'pointer',
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        lineHeight: 1,
+        minWidth: 32,
+        minHeight: 32,
       }}
       data-testid="theme-toggle"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}

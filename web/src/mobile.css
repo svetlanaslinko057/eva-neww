@@ -1185,8 +1185,72 @@
     gap: 24px !important;
   }
   [data-testid="estimator-block"] .estimator-head-stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    grid-template-columns: none !important;
+    gap: 10px !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    /* Slight bleed to viewport edges so the next tile peeks → swipe affordance */
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 4px 20px !important;
+  }
+  [data-testid="estimator-block"] .estimator-head-stats::-webkit-scrollbar {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+  [data-testid="estimator-block"] .estimator-head-stats > * {
+    flex: 0 0 46% !important;
+    min-width: 150px !important;
+    max-width: 200px !important;
+    scroll-snap-align: start !important;
+    /* Slightly smaller padding so 2+ tiles are visible at once */
+    padding: 12px 14px !important;
+  }
+
+  /* Estimator 4-step strip — was stacking vertically; force horizontal scroll */
+  [data-testid="estimator-block"] .estimator-steps {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    grid-template-columns: none !important;
     gap: 12px !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 4px 20px !important;
+  }
+  [data-testid="estimator-block"] .estimator-steps::-webkit-scrollbar {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+  [data-testid="estimator-block"] .estimator-steps > li {
+    flex: 0 0 70% !important;
+    min-width: 210px !important;
+    max-width: 260px !important;
+    scroll-snap-align: start !important;
+    min-height: auto !important;
+  }
+
+  /* Hero 4-stat strip — keep 2x2 on mobile (do not collapse to 1 col) */
+  .hero-stats,
+  .hero-stats--left,
+  .hero-stats--right {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    margin-top: 24px !important;
+    padding-top: 16px !important;
   }
   [data-testid="estimator-block"] .estimator-head h2 {
     font-size: clamp(26px, 7.5vw, 34px) !important;
@@ -1221,10 +1285,18 @@
     max-width: 320px !important;
     scroll-snap-align: start !important;
     padding: 22px 20px !important;
-    border: 1px solid rgba(245,242,236,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
     border-radius: 14px !important;
-    background: #08080A !important;
-    border-top: 1px solid rgba(245,242,236,0.08) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+  }
+  /* Light theme — sequence cards must respect the light surface */
+  :root[data-theme="light"] [data-testid="flow-section"] [data-testid^="flow-step-"],
+  html[data-theme="light"] [data-testid="flow-section"] [data-testid^="flow-step-"],
+  body[data-theme="light"] [data-testid="flow-section"] [data-testid^="flow-step-"] {
+    background: #FAFAF7 !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
   }
 
   /* ---------- 6. BUILD MODES — horizontal scroll-snap ---------- */
@@ -1432,6 +1504,180 @@
     min-height: 44px !important;
   }
   [data-testid="unified-auth-page"] input { padding: 12px 14px !important; }
+
+  /* ============================================================
+     HEADER — compact mobile controls (toggles + "Start project")
+     ============================================================ */
+  [data-testid="landing-header"] {
+    padding: 0 !important;
+  }
+  [data-testid="landing-header"] > div {
+    padding: 0 16px !important;
+    height: 56px !important;
+    gap: 8px !important;
+  }
+  /* Language toggle — borderless, compact click-to-toggle */
+  [data-testid="landing-header"] [data-testid="language-toggle"],
+  [data-testid="landing-header"] [data-testid="language-toggle-button"] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 6px 6px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    border-radius: 8px !important;
+  }
+  /* Theme toggle — borderless, compact */
+  [data-testid="landing-header"] [data-testid="theme-toggle"] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 6px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    border-radius: 8px !important;
+  }
+  /* Login link — tighter */
+  [data-testid="landing-header"] [data-testid="nav-login"] {
+    padding: 6px 6px !important;
+    font-size: 12px !important;
+  }
+  /* "Start project" CTA — compact pill, no extra borders */
+  [data-testid="landing-header"] [data-testid="nav-start"] {
+    padding: 7px 12px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+    border-width: 0 !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.10),
+      inset 0 -1px 0 rgba(0,0,0,0.40),
+      0 1px 2px rgba(0,0,0,0.18) !important;
+    letter-spacing: -0.01em !important;
+  }
+  [data-testid="landing-header"] [data-testid="nav-start"] svg {
+    display: none !important;
+  }
+}
+
+/* ===========================================================================
+   MOBILE CABINET SECTION ("Cabinet in your pocket") — MOBILE REFACTOR
+   ---------------------------------------------------------------------------
+   Target: /app/web/src/components/MobileCabinetSection.js
+   Baseline: iPhone 12 Pro (390x844). Usable width with 20px gutter = 350px.
+   Strategy:
+     1. Reduce section padding 120px 32px → 56px 20px
+     2. Compress hero copy max-width and font sizes
+     3. Role tabs: smaller padding so both fit on one row
+     4. Phone mockup: shrink 320x640 → 268x540 and center
+     5. Stack phone + features with sane gap
+     6. Feature icon column 44px → 40px
+     7. Store badges: full-width column, 100% wide
+     8. Footnote text → block under badges
+   =========================================================================== */
+@media (max-width: 767.98px) {
+
+  /* ---------- 0. Section frame ---------- */
+  [data-testid="mobile-cabinet-section"] {
+    padding: 56px 20px !important;
+  }
+  [data-testid="mobile-cabinet-section"] > div {
+    max-width: 100% !important;
+  }
+
+  /* ---------- 1. Header copy ---------- */
+  [data-testid="mobile-cabinet-section"] h2 {
+    font-size: clamp(26px, 7.2vw, 34px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+    margin-top: 12px !important;
+  }
+  [data-testid="mobile-cabinet-section"] p {
+    font-size: 14.5px !important;
+    line-height: 1.55 !important;
+    margin-top: 14px !important;
+    max-width: 100% !important;
+  }
+
+  /* ---------- 2. Role tabs — fit two buttons on one line ---------- */
+  [data-testid="mobile-cabinet-tabs"] {
+    margin-top: 24px !important;
+    display: inline-flex !important;
+    max-width: 100% !important;
+  }
+  [data-testid="mobile-cabinet-tabs"] button {
+    padding: 9px 12px !important;
+    font-size: 12.5px !important;
+    gap: 6px !important;
+  }
+  [data-testid="mobile-cabinet-tabs"] button > span:first-child {
+    font-size: 9.5px !important;
+  }
+
+  /* ---------- 3. Grid → single column ---------- */
+  [data-testid="mobile-cabinet-section"] .mobile-cabinet-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+    margin-top: 36px !important;
+  }
+
+  /* ---------- 4. Phone mockup — shrink to fit ---------- */
+  [data-testid="mobile-cabinet-section"] .mobile-cabinet-grid > div:first-child {
+    width: 268px !important;
+    height: 540px !important;
+    border-radius: 38px !important;
+    padding: 8px !important;
+  }
+  [data-testid="mobile-cabinet-section"] .mobile-cabinet-grid > div:first-child > div:first-child {
+    /* notch */
+    width: 92px !important;
+    height: 22px !important;
+    top: 12px !important;
+  }
+  [data-testid="mobile-cabinet-device"] {
+    border-radius: 30px !important;
+  }
+
+  /* ---------- 5. Feature column — tighter rows ---------- */
+  [data-testid="mobile-cabinet-features"] > div[data-testid^="mobile-cabinet-feature-"] {
+    grid-template-columns: 40px 1fr !important;
+    gap: 14px !important;
+    padding: 18px 0 !important;
+  }
+  [data-testid="mobile-cabinet-features"] > div[data-testid^="mobile-cabinet-feature-"] > div:first-child {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  [data-testid="mobile-cabinet-features"] > div[data-testid^="mobile-cabinet-feature-"] p {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+  [data-testid="mobile-cabinet-features"] > div[data-testid^="mobile-cabinet-feature-"] span:last-child {
+    font-size: 16px !important;
+  }
+
+  /* ---------- 6. Store badges — full-width stacked column ---------- */
+  [data-testid="mobile-cabinet-features"] > div:last-child {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    margin-top: 20px !important;
+    padding-top: 22px !important;
+  }
+  [data-testid="mobile-cabinet-store-ios"],
+  [data-testid="mobile-cabinet-store-android"] {
+    min-width: 0 !important;
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 18px !important;
+  }
+  /* Footnote (last text node in the row) → its own block under badges */
+  [data-testid="mobile-cabinet-features"] > div:last-child > div:last-child {
+    margin-left: 0 !important;
+    margin-top: 4px !important;
+    font-size: 11px !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
 }
 
 /* END mobile.css */
