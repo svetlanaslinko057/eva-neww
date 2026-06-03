@@ -1766,6 +1766,80 @@
     text-align: center !important;
     width: 100% !important;
   }
+
+  /* ============================================================
+     MOBILE FIX BUNDLE — June 2026
+     1) Escrow pill border-radius matches DevOS cards (14px)
+     2) Execution pipeline (pipeline-ui) — remove white gap below
+     3) AI Build mode cards — equal heights, no crushed cards
+     4) Estimator + Footer — compress excessive empty space
+     ============================================================ */
+
+  /* (1) Escrow pill — match DevOS card radius (was pill 999) */
+  [data-testid="hero-escrow-pill"] {
+    border-radius: 14px !important;
+  }
+
+  /* (2) Pipeline UI — kill the dead white area below the LIVE card */
+  [data-testid="hero"] {
+    padding-bottom: 24px !important;
+  }
+  [data-testid="pipeline-ui"] {
+    margin-bottom: 0 !important;
+  }
+  /* Hero stats row — pull closer to pipeline card */
+  [data-testid="hero"] .hero-stats {
+    margin-top: 24px !important;
+  }
+
+  /* (3) AI Build mode cards — kill empty fillers, align card heights */
+  .modes-grid > [data-testid^="build-mode-"] {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 24px !important;
+    align-self: stretch !important;
+  }
+  /* Inner points list — don't force flex:1 stretching to a huge box */
+  .modes-grid > [data-testid^="build-mode-"] > div:nth-last-child(2) {
+    flex: 0 0 auto !important;
+  }
+  /* CTA button — tighter top margin on mobile */
+  .modes-grid [data-testid$="-cta"] {
+    margin-top: 18px !important;
+  }
+
+  /* (4a) Estimator block — compress vertical voids */
+  [data-testid="estimator-block"] {
+    padding: 8px 20px 32px !important;
+  }
+  [data-testid="estimator-block"] > div > div {
+    padding: 20px 16px 18px !important;
+  }
+  [data-testid="estimator-block"] .estimator-head {
+    gap: 14px !important;
+  }
+  [data-testid="estimator-block"] .estimator-body {
+    gap: 18px !important;
+  }
+
+  /* (4b) Footer — compress padding and gaps on mobile */
+  [data-testid="footer"] {
+    padding-top: 32px !important;
+    padding-bottom: 24px !important;
+  }
+  [data-testid="footer"] > div {
+    padding-top: 24px !important;
+    padding-bottom: 16px !important;
+  }
+  [data-testid="footer"] div[style*="grid-template-columns"],
+  [data-testid="footer"] div[style*="gridTemplateColumns"] {
+    gap: 18px !important;
+  }
+  /* Final CTA before footer — reduce vertical padding */
+  [data-testid="final-cta"] {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
 }
 
 /* END mobile.css */
