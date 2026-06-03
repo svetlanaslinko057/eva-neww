@@ -80,3 +80,24 @@ memory/test_credentials.md
 
 # Mobile development
 android-sdk/
+# Environment files (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+**/.env
+backend/.env
+frontend/.env
+web/.env
+
+# Web build output (regenerated locally)
+web/build/
+
+# Expo / Metro caches
+.expo/
+.expo-shared/
+.metro-cache/
+__expo-internal__/
+
+# OS junk
+.DS_Store
+Thumbs.db
