@@ -1230,6 +1230,7 @@ const SequenceSection = () => { const { tByEn } = useLang(); return (
       />
 
       <div
+        className="sequence-list"
         style={{
           marginTop: 56,
           border: `1px solid ${C.border1}`,

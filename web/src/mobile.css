@@ -803,6 +803,276 @@
   /* Pages that set their own max-w-*, let them be full-width on mobile */
   [class*="max-w-"] { max-width: 100% !important; }
 
+
+  /* =======================================================================
+     19. LANDING PAGE — Mobile refactor (iPhone 12 Pro baseline 390x844)
+        Targets inline-styled grids in /app/web/src/pages/LandingPage.js.
+        Strategy: 20px gutters everywhere + horizontal scroll carousels
+        for big card blocks instead of squishing/stacking.
+     ======================================================================= */
+
+  /* ---------- HEADER (compact, single-line) ---------- */
+  [data-testid="landing-header"] > div {
+    padding: 0 20px !important;
+    height: 56px !important;
+    gap: 8px !important;
+    max-width: 100% !important;
+  }
+  [data-testid="landing-header"] [data-testid="landing-logo-mark"],
+  [data-testid="landing-header"] [data-testid="landing-logo-mark"] svg,
+  [data-testid="landing-header"] [data-testid="landing-logo-mark"] img {
+    height: 28px !important;
+    width: auto !important;
+  }
+  /* Right cluster: keep only Lang/Theme + primary CTA — hide login text */
+  [data-testid="landing-header"] [data-testid="nav-login"] {
+    display: none !important;
+  }
+  [data-testid="landing-header"] [data-testid="nav-start"] {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+  /* Compact right cluster gap */
+  [data-testid="landing-header"] > div > div:last-child {
+    gap: 6px !important;
+  }
+
+  /* ---------- LANDING PAGE — global 20px gutters ---------- */
+  [data-testid="landing-page"] {
+    overflow-x: hidden !important;
+  }
+  /* Override 32px section paddings → 20px horizontal */
+  [data-testid="landing-page"] section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  /* Section vertical paddings — reduce 120px → 64px */
+  [data-testid="flow-section"],
+  [data-testid="build-modes-section"],
+  [data-testid="system-section"],
+  [data-testid="capabilities-section"],
+  [data-testid="use-cases-section"],
+  [data-testid="portfolio-section"],
+  [data-testid="final-cta"] {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+  [data-testid="hero"] {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  [data-testid="estimator-block"] {
+    padding: 16px 20px 56px !important;
+  }
+  /* Inner container max-width wrappers — keep 100% width */
+  [data-testid="landing-page"] section > div[style*="max-width"],
+  [data-testid="landing-page"] section > div[style*="maxWidth"],
+  [data-testid="landing-header"] > div {
+    max-width: 100% !important;
+  }
+
+  /* ---------- ESTIMATOR INNER CARD ---------- */
+  [data-testid="estimator-block"] > div > div {
+    padding: 24px 16px 20px !important;
+    border-radius: 16px !important;
+  }
+
+  /* ---------- HORIZONTAL SCROLL CAROUSELS ----------
+     Apply to all major card grids on mobile.
+     Cards become 86% wide so the next card peeks → swipe affordance. */
+  .modes-grid,
+  .system-grid,
+  .cap-grid,
+  .portfolio-grid,
+  .estimator-steps,
+  .estimator-head-stats,
+  .sequence-list,
+  .usecase-grid,
+  .team-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    grid-template-columns: none !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 12px !important;
+    /* Full-bleed: pull edges to viewport, add 20px inner padding for snap */
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 4px 20px 12px 20px !important;
+    scroll-padding-left: 20px !important;
+    /* Reset desktop background/border so carousel feels clean */
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .modes-grid::-webkit-scrollbar,
+  .system-grid::-webkit-scrollbar,
+  .cap-grid::-webkit-scrollbar,
+  .portfolio-grid::-webkit-scrollbar,
+  .estimator-steps::-webkit-scrollbar,
+  .estimator-head-stats::-webkit-scrollbar,
+  .sequence-list::-webkit-scrollbar,
+  .usecase-grid::-webkit-scrollbar,
+  .team-grid::-webkit-scrollbar {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+
+  /* Direct children become snap items */
+  .modes-grid > *,
+  .system-grid > *,
+  .cap-grid > *,
+  .portfolio-grid > *,
+  .usecase-grid > *,
+  .team-grid > * {
+    flex: 0 0 86% !important;
+    min-width: 86% !important;
+    max-width: 86% !important;
+    width: 86% !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* System grid children need border back (carousel removed it) */
+  .system-grid > * {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+  }
+  /* In light theme */
+  :root[data-theme="light"] .system-grid > * {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    background: rgba(0, 0, 0, 0.015) !important;
+  }
+
+  /* Smaller "step" / "stat" cards — narrower so 2 visible at once */
+  .estimator-steps > *,
+  .estimator-head-stats > * {
+    flex: 0 0 72% !important;
+    min-width: 220px !important;
+    max-width: 280px !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* Sequence rows become cards in carousel: stack their inner 3-col grid */
+  .sequence-list > * {
+    flex: 0 0 86% !important;
+    min-width: 86% !important;
+    max-width: 86% !important;
+    scroll-snap-align: start !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+  }
+  :root[data-theme="light"] .sequence-list > * {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    background: rgba(0, 0, 0, 0.015) !important;
+  }
+  /* Stack the seq-id | content | meta columns vertically inside each card */
+  [data-testid="flow-section"] [data-testid^="flow-step-"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 20px !important;
+    align-items: start !important;
+  }
+  [data-testid="flow-section"] [data-testid^="flow-step-"] > div:last-child {
+    text-align: left !important;
+  }
+
+  /* ---------- HERO — stack copy + visual ---------- */
+  .hero-grid {
+    gap: 32px !important;
+  }
+  .hero-stats {
+    gap: 14px !important;
+  }
+
+  /* ---------- ESTIMATOR HEAD/BODY ---------- */
+  .estimator-head {
+    gap: 18px !important;
+  }
+  .estimator-body {
+    gap: 24px !important;
+  }
+
+  /* ---------- FOOTER — single-column ---------- */
+  [data-testid="footer"] > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 32px !important;
+  }
+  [data-testid="footer"] div[style*="grid-template-columns"],
+  [data-testid="footer"] div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* ---------- TYPOGRAPHY — tighten for 390px ---------- */
+  [data-testid="hero"] h1 {
+    font-size: clamp(28px, 8.5vw, 40px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.02em !important;
+  }
+  [data-testid="landing-page"] section h2 {
+    font-size: clamp(24px, 6.6vw, 32px) !important;
+    line-height: 1.12 !important;
+  }
+  /* Section header kicker / sub */
+  [data-testid="landing-page"] section p {
+    font-size: 14.5px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ---------- HORIZONTAL-SCROLL HINT (subtle gradient on right edge) ---------- */
+  .modes-grid,
+  .cap-grid,
+  .portfolio-grid,
+  .sequence-list,
+  .usecase-grid {
+    /* Mask fade on right edge to hint scrollability */
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 24px), transparent 100%);
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 24px), transparent 100%);
+  }
+
+  /* ---------- AUTH PAGES (UnifiedAuthPage uses Tailwind) ---------- */
+  [data-testid="unified-auth-page"] .p-6 {
+    padding: 16px 20px !important;
+  }
+  [data-testid="unified-auth-page"] .px-6 {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  [data-testid="unified-auth-page"] .p-7 {
+    padding: 20px !important;
+  }
+  /* Logo shrink */
+  [data-testid="unified-auth-page"] img,
+  [data-testid="unified-auth-page"] svg.h-\[140px\] {
+    max-height: 64px !important;
+    width: auto !important;
+  }
+  /* Card container — full width with 20px gutters */
+  [data-testid="unified-auth-page"] .max-w-\[460px\] {
+    max-width: 100% !important;
+  }
+  /* Inputs — bigger tap targets */
+  [data-testid="unified-auth-page"] input,
+  [data-testid="unified-auth-page"] button {
+    min-height: 44px !important;
+  }
+  /* Heading size on auth */
+  [data-testid="unified-auth-page"] h1,
+  [data-testid="unified-auth-page"] h2,
+  [data-testid="unified-auth-page"] .text-\[28px\] {
+    font-size: 24px !important;
+    line-height: 1.15 !important;
+  }
 }
 
 
@@ -834,6 +1104,334 @@
 @keyframes m-sheet-fall {
   from { transform: translateY(0);    opacity: 1; }
   to   { transform: translateY(100%); opacity: 0; }
+}
+
+/* ===========================================================================
+   LANDING (DARK) — MOBILE REFACTOR (iPhone 12 Pro baseline: 390x844)
+   ---------------------------------------------------------------------------
+   Target: /app/web/src/pages/LandingPage.js (LandingPageDark variant).
+   Strategy: override inline styles via [data-testid="…"] + class selectors
+   with !important. Mobile breakpoint: 767.98px. Layout rules:
+     - 20px horizontal page padding globally.
+     - Compact unified header (52px) with hidden desktop nav.
+     - Large card blocks → horizontal scroll-snap rails (Estimate, Sequence,
+       Build Modes, Capabilities/Ship, Team/System, Portfolio).
+   =========================================================================== */
+@media (max-width: 767.98px) {
+
+  /* ---------- 0. Disable accidental horizontal page scroll ---------- */
+  html, body { overflow-x: hidden; }
+  [data-testid="landing-page"] { overflow-x: hidden; }
+
+  /* ---------- 1. COMPACT UNIFIED HEADER ---------- */
+  [data-testid="landing-header"] > div {
+    padding: 0 20px !important;
+    height: 52px !important;
+    gap: 12px !important;
+  }
+  [data-testid="landing-header"] [data-testid="landing-logo-mark"] {
+    height: 28px !important;
+    width: auto !important;
+  }
+  /* nav already hidden via .landing-nav-desktop @media; reinforce */
+  [data-testid="landing-header"] .landing-nav-desktop { display: none !important; }
+
+  /* Tighter language/theme/login/start cluster */
+  [data-testid="landing-header"] > div > div:last-child { gap: 6px !important; }
+  [data-testid="nav-login"] {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+  }
+  [data-testid="nav-start"] {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* ---------- 2. GLOBAL 20px HORIZONTAL PADDING ---------- */
+  /* Every top-level landing section has padding "X 32px" inline.
+     Force the horizontal component to 20px and tighten vertical rhythm. */
+  [data-testid="hero"]                 { padding: 40px 20px 48px !important; }
+  [data-testid="estimator-block"]      { padding: 24px 20px 64px !important; }
+  [data-testid="flow-section"]         { padding: 64px 20px !important; }
+  [data-testid="build-modes-section"]  { padding: 64px 20px !important; }
+  [data-testid="system-section"]       { padding: 64px 20px !important; }
+  [data-testid="capabilities-section"] { padding: 64px 20px !important; }
+  [data-testid="use-cases-section"]    { padding: 64px 20px !important; }
+  [data-testid="portfolio-section"]    { padding: 64px 20px !important; }
+  [data-testid="final-cta"]            { padding: 64px 20px !important; }
+  [data-testid="footer"]               { padding: 40px 20px 24px !important; }
+
+  /* ---------- 3. HERO — vertical stack ---------- */
+  [data-testid="hero"] .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  [data-testid="hero"] h1 {
+    font-size: clamp(34px, 9vw, 44px) !important;
+  }
+  /* Hero CTA row → wrap cleanly */
+  [data-testid="hero-describe"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* ---------- 4. ESTIMATOR — inner card slimmer; head stacks ---------- */
+  [data-testid="estimator-block"] > div > div {
+    padding: 24px 18px 28px !important;
+    border-radius: 14px !important;
+  }
+  [data-testid="estimator-block"] .estimator-head {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  [data-testid="estimator-block"] .estimator-head-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  [data-testid="estimator-block"] .estimator-head h2 {
+    font-size: clamp(26px, 7.5vw, 34px) !important;
+  }
+
+  /* ---------- 5. SEQUENCE — horizontal scroll-snap rail ---------- */
+  [data-testid="flow-section"] .sequence-list {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-radius: 14px !important;
+    /* Negative-margin trick so cards visually extend to viewport edges */
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 0 20px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    gap: 12px !important;
+    scrollbar-width: none;
+  }
+  [data-testid="flow-section"] .sequence-list::-webkit-scrollbar { display: none; }
+  [data-testid="flow-section"] [data-testid^="flow-step-"] {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    flex: 0 0 86% !important;
+    max-width: 320px !important;
+    scroll-snap-align: start !important;
+    padding: 22px 20px !important;
+    border: 1px solid rgba(245,242,236,0.08) !important;
+    border-radius: 14px !important;
+    background: #08080A !important;
+    border-top: 1px solid rgba(245,242,236,0.08) !important;
+  }
+
+  /* ---------- 6. BUILD MODES — horizontal scroll-snap ---------- */
+  [data-testid="build-modes-section"] .modes-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 8px 20px !important;
+    gap: 14px !important;
+    grid-template-columns: none !important;
+    scrollbar-width: none;
+  }
+  [data-testid="build-modes-section"] .modes-grid::-webkit-scrollbar { display: none; }
+  [data-testid="build-modes-section"] [data-testid^="build-mode-"] {
+    flex: 0 0 86% !important;
+    max-width: 320px !important;
+    scroll-snap-align: start !important;
+    min-width: 0;
+  }
+
+  /* ---------- 7. SYSTEM / TEAM — horizontal scroll-snap ---------- */
+  [data-testid="system-section"] .system-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 0 20px !important;
+    gap: 12px !important;
+    grid-template-columns: none !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 14px !important;
+    scrollbar-width: none;
+  }
+  [data-testid="system-section"] .system-grid::-webkit-scrollbar { display: none; }
+  [data-testid="system-section"] [data-testid^="system-card-"] {
+    flex: 0 0 80% !important;
+    max-width: 300px !important;
+    scroll-snap-align: start !important;
+    border: 1px solid rgba(245,242,236,0.08) !important;
+    border-radius: 14px !important;
+  }
+
+  /* ---------- 8. CAPABILITIES (What we can ship) — horizontal scroll ---------- */
+  [data-testid="capabilities-section"] .cap-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 0 20px !important;
+    gap: 14px !important;
+    grid-template-columns: none !important;
+    scrollbar-width: none;
+  }
+  [data-testid="capabilities-section"] .cap-grid::-webkit-scrollbar { display: none; }
+  [data-testid="capabilities-section"] .cap-grid > [data-testid^="capability-"] {
+    flex: 0 0 86% !important;
+    max-width: 320px !important;
+    scroll-snap-align: start !important;
+  }
+
+  /* ---------- 9. USE CASES — vertical stack (no horizontal scroll) ---------- */
+  [data-testid="use-cases-section"] [style*="grid-template-columns"] {
+    /* Sequence rows: 160px 1fr → stack */
+  }
+  /* Force row stacking: targeting both .use-case rows + cta row */
+  [data-testid="use-cases-section"] > div > div > div {
+    /* generic — keep as-is to avoid over-reach */
+  }
+  /* Specific: row-level grids inside use-cases (160px 1fr) → stack to 1fr */
+  [data-testid="use-cases-section"] [id], /* no-op safeguard */
+  [data-testid="use-cases-cta"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 18px 20px !important;
+  }
+  /* Generic row stacker for use-cases inner rows */
+  [data-testid="use-cases-section"] > div > div > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 18px 20px 18px 22px !important;
+  }
+
+  /* ---------- 10. PORTFOLIO — horizontal scroll-snap ---------- */
+  [data-testid="portfolio-section"] .portfolio-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-left: -20px !important;
+    margin-right: -20px !important;
+    padding: 8px 20px !important;
+    gap: 14px !important;
+    grid-template-columns: none !important;
+    scrollbar-width: none;
+  }
+  [data-testid="portfolio-section"] .portfolio-grid::-webkit-scrollbar { display: none; }
+  [data-testid="portfolio-section"] [data-testid^="portfolio-card-"] {
+    flex: 0 0 84% !important;
+    max-width: 320px !important;
+    scroll-snap-align: start !important;
+    min-width: 0;
+  }
+
+  /* ---------- 11. FINAL CTA + FOOTER ---------- */
+  [data-testid="final-cta"] > div > div {
+    padding: 36px 22px !important;
+    border-radius: 16px !important;
+  }
+  [data-testid="footer"] > div {
+    padding: 32px 20px 24px !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* ---------- 12. SECTION HEADERS — slimmer on mobile ---------- */
+  [data-testid="landing-page"] h2 {
+    font-size: clamp(26px, 7.2vw, 34px) !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  /* ---------- 13. PROMO BANNERS — 20px gutter ---------- */
+  [data-testid^="promo-banner"] { padding-left: 20px !important; padding-right: 20px !important; }
+}
+
+/* ===========================================================================
+   AUTH PAGE — MOBILE OPTIMIZATION (UnifiedAuthPage.js)
+   Structure: Tailwind-driven. Right column already w-full on mobile;
+   left aside is `hidden lg:block`. We just tighten gutters/heights and
+   prevent iOS auto-zoom on inputs.
+   =========================================================================== */
+@media (max-width: 767.98px) {
+  /* Outer container — keep neutral, content owns the 20px gutter */
+  [data-testid="unified-auth-page"] {
+    overflow-x: hidden;
+  }
+
+  /* Right column wrapper: enforce 20px horizontal padding everywhere */
+  [data-testid="unified-auth-page"] > .w-full,
+  [data-testid="unified-auth-page"] > div > .w-full {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Tighten the header row (logo + back-btn) — was p-6 (24px) */
+  [data-testid="unified-auth-page"] .p-6 {
+    padding: 16px 20px !important;
+  }
+
+  /* Center column padding: was px-6 pb-12 */
+  [data-testid="unified-auth-page"] .px-6 {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  [data-testid="unified-auth-page"] .pb-12 {
+    padding-bottom: 32px !important;
+  }
+
+  /* Inner content max width — full bleed within 20px gutter */
+  [data-testid="unified-auth-page"] .max-w-\[460px\] {
+    max-width: 100% !important;
+  }
+
+  /* Auth card — was p-7 (28px) — slim down for 350px usable width */
+  [data-testid="unified-auth-page"] .p-7 {
+    padding: 22px 18px !important;
+    border-radius: 16px !important;
+  }
+
+  /* Logo — slim from 140 to 96 on mobile */
+  [data-testid="unified-auth-page"] [class*="h-[140px]"] {
+    height: 96px !important;
+  }
+
+  /* Headline shrink */
+  [data-testid="unified-auth-page"] [data-testid="auth-heading"] {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+  }
+  [data-testid="unified-auth-page"] [data-testid="auth-subheading"] {
+    font-size: 14px !important;
+  }
+
+  /* Inputs / buttons — prevent iOS zoom + 44pt touch targets */
+  [data-testid="unified-auth-page"] input,
+  [data-testid="unified-auth-page"] button,
+  [data-testid="unified-auth-page"] select,
+  [data-testid="unified-auth-page"] textarea {
+    font-size: 16px !important;
+    min-height: 44px !important;
+  }
+  [data-testid="unified-auth-page"] input { padding: 12px 14px !important; }
 }
 
 /* END mobile.css */
